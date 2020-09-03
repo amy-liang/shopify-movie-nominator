@@ -6,6 +6,9 @@ import { API_KEY } from "./APIKey";
 @injectable()
 export class OMDbStore implements IOMDbStore {
     @observable
+    query: string | null = null;
+
+    @observable
     nominations: IMovie[] = [];
 
     @action
@@ -14,7 +17,7 @@ export class OMDbStore implements IOMDbStore {
             return [];
         }
 
-        const queryString = "&s=" + query;
+        const queryString = "?s=" + query;
         const pageString = "&p=" + page;
         const apiKeyString = "&apikey=" + API_KEY;
 
@@ -26,7 +29,7 @@ export class OMDbStore implements IOMDbStore {
                     pageString +
                     apiKeyString
             );
-            // Todo: Parse and return movies
+            console.log(rawMovies);
         } catch (error) {
             console.error(error);
         }

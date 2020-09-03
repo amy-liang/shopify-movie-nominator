@@ -8,10 +8,9 @@ const HeaderContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     position: fixed;
+    padding-left: 32px;
     z-index: 100;
-    transition: all 0.5s ease-in-out;
     border-bottom: 0.5px solid ${Colors.navy};
 `;
 

@@ -6,32 +6,38 @@ import loading from "*.svg";
 const FooterContainer = styled.div`
     position: fixed;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     background-color: ${Colors.green};
+`;
+
+const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 16px;
 `;
 
 export class Footer extends React.Component {
     render() {
         return (
             <FooterContainer>
-                <p>Shopify W'21 Web Developer Challenge by Amy Liang</p>
-                <p>
-                    Icons made by{" "}
-                    <a
-                        href="https://www.flaticon.com/authors/photo3idea-studio"
-                        title="photo3idea_studio"
-                    >
-                        photo3idea_studio
-                    </a>{" "}
-                    from{" "}
-                    <a href="https://www.flaticon.com/" title="Flaticon">
-                        {" "}
-                        www.flaticon.com
-                    </a>
-                </p>
+                <Container>
+                    <p>No nominations</p>
+                    <p>
+                        Icons made by{" "}
+                        <a
+                            href="https://www.flaticon.com/authors/photo3idea-studio"
+                            title="photo3idea_studio"
+                        >
+                            photo3idea_studio
+                        </a>{" "}
+                        from{" "}
+                        <a href="https://www.flaticon.com/" title="Flaticon">
+                            {" "}
+                            www.flaticon.com
+                        </a>
+                    </p>
+                </Container>
             </FooterContainer>
         );
     }

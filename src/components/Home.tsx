@@ -10,6 +10,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { SearchBar } from "./SearchBar";
 import cinema from "../resources/cinema.png";
+import { Spacer } from "./Spacer";
 
 const AppContainer = styled.div`
     width: 100vw;
@@ -18,13 +19,13 @@ const AppContainer = styled.div`
 `;
 
 const InnerContainer = styled.div`
-    padding-top: ${Dimensions.headerHeight}px;
+    height: 100%;
+    padding: 0px 32px;
     display: flex;
     flex-direction: column;
 `;
 
 const ResultsContainer = styled.div`
-    width: 100vw;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -42,6 +43,9 @@ export class Home extends React.Component {
     @observable
     private isLoading: boolean = false;
 
+    @observable
+    private showingSearchResults: boolean = false;
+
     @action
     private setLoading = (loading: boolean) => {
         this.isLoading = loading;
@@ -52,10 +56,17 @@ export class Home extends React.Component {
             <AppContainer>
                 <Header />
                 <InnerContainer>
+                    <Spacer height={Dimensions.headerHeight} />
                     <SearchBar />
                     <ResultsContainer>
-                        <img src={cinema} width={140} />
-                        <p>Search for a movie!</p>
+                        {this.showingSearchResults ? (
+                            <p>true</p>
+                        ) : (
+                            <React.Fragment>
+                                <img src={cinema} width={140} />
+                                <p>Search for a movie!</p>
+                            </React.Fragment>
+                        )}
                     </ResultsContainer>
                 </InnerContainer>
                 <Footer />
