@@ -2,6 +2,7 @@ export interface IMovie {
     title?: string;
     release_year?: string;
     poster_url?: string;
+    id?: string;
 }
 
 export interface IOMDbStore {
