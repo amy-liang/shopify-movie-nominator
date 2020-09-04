@@ -22,14 +22,6 @@ const SearchIcon = styled.img`
     width: 17px;
 `;
 
-const ClearIcon = styled.img`
-    position: absolute;
-    top: 11px;
-    right: 10px;
-    width: 15px;
-    cursor: pointer;
-`;
-
 const SearchField = styled.input`
     padding: 0 32px;
     width: 100%;

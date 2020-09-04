@@ -11,10 +11,15 @@ export class OMDbStore implements IOMDbStore {
     @observable
     nominations: IMovie[] = [];
 
+    @observable
+    error: string | null = null;
+
     @action
-    searchMovies = async (query: String, page: number): Promise<IMovie[]> => {
+    searchMovies = async (query: String, page: number) => {
         if (query.trim().length <= 0) {
-            return [];
+            this.searchResults = [];
+            this.error = null;
+            return;
         }
 
         const queryString = "?s=" + query;
@@ -38,8 +43,8 @@ export class OMDbStore implements IOMDbStore {
             this.parseAndSetMovieData(movieData);
         } catch (error) {
             console.error("Error: " + error);
+            this.error = error;
         }
-        return [];
     };
 
     @action
@@ -56,33 +61,28 @@ export class OMDbStore implements IOMDbStore {
         this.searchResults = results;
     }
 
-    public getNominations(): IMovie[] {
-        if (this.nominations == null) {
-            const localStorageVideos = localStorage.getItem(
-                "shopify_movie_nominations_cached"
-            );
-            if (localStorageVideos != null) {
-                // return cached nominations
-                return [];
-            }
+    @action
+    addNomination(movie: IMovie) {
+        if (this.nominations.length >= 5) {
+            console.log("WOW!");
+        } else {
+            this.nominations.push(movie);
+            this.updateCache();
         }
-        return this.nominations;
     }
 
-    public addNomination(movie: IMovie) {
-        // Todo: Add movie to nomination list and check if 5 have been added
-        // Todo: Update cache
+    @action
+    removeNomination(movieToRemove: IMovie) {
+        this.nominations = this.nominations.filter(
+            movie => movie !== movieToRemove
+        );
+        this.updateCache();
+    }
+
+    private updateCache() {
         localStorage.setItem(
             "shopify_movie_nominations_cached",
-            this.nominations.map(video => JSON.stringify(video)).toString()
+            this.nominations.map(movie => JSON.stringify(movie)).toString()
         );
-    }
-
-    public removeNomination(index: number) {
-        // Todo: Remove the movie from the nomination list
-    }
-
-    public removeAllNominations() {
-        // Todo: Clear the entire nomination list
     }
 }

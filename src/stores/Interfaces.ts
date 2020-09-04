@@ -15,9 +15,8 @@ export interface IMovie {
 export interface IOMDbStore {
     searchResults: IMovie[];
     nominations: IMovie[];
-    searchMovies: (query: string, pageToken: number) => Promise<IMovie[]>;
-    getNominations: () => IMovie[];
+    error: string | null;
+    searchMovies: (query: string, pageToken: number) => void;
     addNomination: (nomination: IMovie) => void;
-    removeNomination: (index: number) => void;
-    removeAllNominations: () => void;
+    removeNomination: (movieToRemove: IMovie) => void;
 }

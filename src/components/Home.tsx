@@ -10,8 +10,10 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { SearchBar } from "./SearchBar";
 import cinema from "../resources/cinema.png";
+import trophy from "../resources/trophy.png";
 import { Spacer } from "./Spacer";
 import { IMovie } from "../stores/Interfaces";
+import includes from "lodash/includes";
 
 const AppContainer = styled.div`
     width: 100vw;
@@ -26,7 +28,7 @@ const Row = styled.div`
 
 const InnerContainer = styled.div`
     width: 50vw;
-    height: 100%;
+    height: 100vh;
     padding: 0px 16px;
     display: flex;
     flex-direction: column;
@@ -72,8 +74,9 @@ const SearchResultTextContainer = styled.div`
 `;
 
 const NominateButton = styled.div`
-    border: 1px solid ${Colors.navy};
-    color: ${Colors.navy};
+    border: 1px solid
+        ${props => (props.isNomination ? Colors.navy : Colors.green)};
+    color: ${props => (props.isNomination ? Colors.navy : Colors.green)};
     margin-right: 16px;
     height: 30px;
     padding: 8px;
@@ -90,6 +93,7 @@ const NominationsContainer = styled.div`
     display: flex;
     margin: 16px 0;
     flex-direction: column;
+    margin-bottom: ${Dimensions.footerHeight + 12}px;
 `;
 
 @observer
@@ -98,25 +102,47 @@ export class Home extends React.Component {
     private omdbStore: OMDbStore = container.get(TYPES.OMDbStore);
 
     @observable
-    private isLoading: boolean = false;
+    private showModal: boolean = false;
 
     @computed
     get showingSearchResults(): boolean {
         return this.omdbStore.searchResults.length > 0;
     }
 
+    @computed
+    get hasNominations(): boolean {
+        return this.omdbStore.nominations.length > 0;
+    }
+
+    private toggleNomination = (nomination: IMovie, isNomination: boolean) => {
+        if (isNomination) {
+            this.omdbStore.removeNomination(nomination);
+        } else if (!this.omdbStore.nominations.includes(nomination)) {
+            this.omdbStore.addNomination(nomination);
+            if (this.omdbStore.nominations.length >= 5) {
+                this.showNominationCompleteModal();
+            }
+        }
+    };
+
     @action
-    private setLoading = (loading: boolean) => {
-        this.isLoading = loading;
+    showNominationCompleteModal = () => {
+        this.showModal = true;
     };
 
     renderSearchResults = () => {
         return this.omdbStore.searchResults.map(movie =>
-            this.renderSearchResult(movie)
+            this.renderSearchResult(movie, false)
         );
     };
 
-    private renderSearchResult = (movie: IMovie) => {
+    private renderSearchResult = (movie: IMovie, isNomination: boolean) => {
+        let buttonText;
+        if (isNomination) {
+            buttonText = "Remove";
+        } else {
+            buttonText = "Nominate";
+        }
         return (
             <SearchResultContainer key={movie.id}>
                 <SearchResultTextContainer>
@@ -128,11 +154,18 @@ export class Home extends React.Component {
                     </div>
                 </SearchResultTextContainer>
                 <NominateButton
-                    onClick={() => this.omdbStore.addNomination(movie)}
+                    onClick={() => this.toggleNomination(movie, isNomination)}
+                    isNomination={isNomination}
                 >
-                    Nominate
+                    {buttonText}
                 </NominateButton>
             </SearchResultContainer>
+        );
+    };
+
+    renderNominations = () => {
+        return this.omdbStore.nominations.map(movie =>
+            this.renderSearchResult(movie, true)
         );
     };
 
@@ -150,8 +183,18 @@ export class Home extends React.Component {
                                 this.renderSearchResults()
                             ) : (
                                 <PlaceholderContainer>
-                                    <img src={cinema} width={140} />
-                                    <p>Search for a movie!</p>
+                                    {this.omdbStore.error ? null : (
+                                        <img
+                                            src={cinema}
+                                            alt="search placeholder"
+                                            width={140}
+                                        />
+                                    )}
+                                    <p>
+                                        {this.omdbStore.error
+                                            ? this.omdbStore.error
+                                            : "Search for a movie!"}
+                                    </p>
                                 </PlaceholderContainer>
                             )}
                         </ResultsContainer>
@@ -160,6 +203,18 @@ export class Home extends React.Component {
                         <Spacer height={Dimensions.headerHeight} />
                         <NominationsContainer>
                             <h2>Nominations</h2>
+                            {this.hasNominations ? (
+                                this.renderNominations()
+                            ) : (
+                                <PlaceholderContainer>
+                                    <img
+                                        src={trophy}
+                                        alt="nominations placeholder"
+                                        width={140}
+                                    />
+                                    <p>None yet!</p>
+                                </PlaceholderContainer>
+                            )}
                         </NominationsContainer>
                     </InnerContainer>
                 </Row>
