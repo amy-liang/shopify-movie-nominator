@@ -30,7 +30,7 @@ export class OMDbStore implements IOMDbStore {
         const axios = require("axios").default;
         try {
             const rawData = await axios.get(
-                "http://www.omdbapi.com/" +
+                "https://www.omdbapi.com/" +
                     queryString +
                     pageString +
                     typeString +
