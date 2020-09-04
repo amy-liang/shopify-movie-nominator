@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/shopify-movie-nominator/static/css/main.5428d52f.chunk.css",
+    "main.js": "/shopify-movie-nominator/static/js/main.b98f8bd6.chunk.js",
+    "main.js.map": "/shopify-movie-nominator/static/js/main.b98f8bd6.chunk.js.map",
+    "runtime-main.js": "/shopify-movie-nominator/static/js/runtime-main.8035a94c.js",
+    "runtime-main.js.map": "/shopify-movie-nominator/static/js/runtime-main.8035a94c.js.map",
+    "static/js/2.32170218.chunk.js": "/shopify-movie-nominator/static/js/2.32170218.chunk.js",
+    "static/js/2.32170218.chunk.js.map": "/shopify-movie-nominator/static/js/2.32170218.chunk.js.map",
+    "index.html": "/shopify-movie-nominator/index.html",
+    "precache-manifest.a435d31bcf7fb760d39104b0a68b77cc.js": "/shopify-movie-nominator/precache-manifest.a435d31bcf7fb760d39104b0a68b77cc.js",
+    "service-worker.js": "/shopify-movie-nominator/service-worker.js",
+    "static/css/main.5428d52f.chunk.css.map": "/shopify-movie-nominator/static/css/main.5428d52f.chunk.css.map",
+    "static/js/2.32170218.chunk.js.LICENSE.txt": "/shopify-movie-nominator/static/js/2.32170218.chunk.js.LICENSE.txt",
+    "static/media/cinema.png": "/shopify-movie-nominator/static/media/cinema.dc3d4eba.png",
+    "static/media/search.svg": "/shopify-movie-nominator/static/media/search.070dbfaa.svg",
+    "static/media/trophy.png": "/shopify-movie-nominator/static/media/trophy.593a2a6e.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8035a94c.js",
+    "static/js/2.32170218.chunk.js",
+    "static/css/main.5428d52f.chunk.css",
+    "static/js/main.b98f8bd6.chunk.js"
+  ]
+}
