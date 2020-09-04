@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Home } from "./components/Home";
 import styled from "styled-components";
-import { Colors } from "./stores/Constants";
 
 const AppContainer = styled.div`
     width: 100vw;

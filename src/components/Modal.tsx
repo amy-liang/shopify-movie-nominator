@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Colors, Dimensions } from "../stores/Constants";
+import { Colors } from "../stores/Constants";
 import { observer } from "mobx-react";
 
 const ModalContainer = styled.div`
