@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import close from "../resources/close.svg";
 import search from "../resources/search.svg";
 import { action, observable } from "mobx";
 import { OMDbStore } from "../stores/OMDbStore";
@@ -53,13 +52,7 @@ export class SearchBar extends React.Component<IProps> {
 
     @action
     onInput = (query: string) => {
-        console.log("oninput");
         this.omdbStore.searchMovies(query, 1);
-    };
-
-    @action
-    clearText = () => {
-        this.query = "";
     };
 
     render() {
@@ -73,7 +66,6 @@ export class SearchBar extends React.Component<IProps> {
                     type="text"
                     onChange={event => debouncedOnInput(event.target.value)}
                 />
-                <ClearIcon src={close} onClick={() => this.clearText()} />
             </Container>
         );
     }

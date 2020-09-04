@@ -1,12 +1,12 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Colors } from "../stores/Constants";
-import loading from "*.svg";
+import { Colors, Dimensions } from "../stores/Constants";
 
 const FooterContainer = styled.div`
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: ${Dimensions.footerHeight};
     background-color: ${Colors.green};
 `;
 
@@ -14,7 +14,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 16px;
+    padding: 0px 8px;
 `;
 
 export class Footer extends React.Component {
@@ -22,7 +22,9 @@ export class Footer extends React.Component {
         return (
             <FooterContainer>
                 <Container>
-                    <p>No nominations</p>
+                    <p>
+                        Shopify W'21 Web Developer Intern Challenge by Amy Liang
+                    </p>
                     <p>
                         Icons made by{" "}
                         <a

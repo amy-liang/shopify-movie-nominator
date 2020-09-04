@@ -1,12 +1,12 @@
 import { action, observable } from "mobx";
 import { injectable } from "inversify";
-import { IMovie, IOMDbStore } from "./Interfaces";
+import { IMovie, IOMDbMovie, IOMDbStore } from "./Interfaces";
 import { API_KEY } from "./APIKey";
 
 @injectable()
 export class OMDbStore implements IOMDbStore {
     @observable
-    query: string | null = null;
+    searchResults: IMovie[] = [];
 
     @observable
     nominations: IMovie[] = [];
@@ -19,22 +19,42 @@ export class OMDbStore implements IOMDbStore {
 
         const queryString = "?s=" + query;
         const pageString = "&p=" + page;
+        const typeString = "&type=movie";
         const apiKeyString = "&apikey=" + API_KEY;
 
         const axios = require("axios").default;
         try {
-            const rawMovies = await axios.get(
+            const rawData = await axios.get(
                 "http://www.omdbapi.com/" +
                     queryString +
                     pageString +
+                    typeString +
                     apiKeyString
             );
-            console.log(rawMovies);
+            if (rawData.data.Response === "False") {
+                throw rawData.data.Error;
+            }
+            const movieData = rawData.data.Search;
+            this.parseAndSetMovieData(movieData);
         } catch (error) {
-            console.error(error);
+            console.error("Error: " + error);
         }
         return [];
     };
+
+    @action
+    private parseAndSetMovieData(movieData: IOMDbMovie[]) {
+        const results: IMovie[] = [];
+        for (const rawMovie of movieData) {
+            results.push({
+                title: rawMovie.Title,
+                release_year: rawMovie.Year,
+                poster_url: rawMovie.Poster,
+                id: rawMovie.imdbID
+            });
+        }
+        this.searchResults = results;
+    }
 
     public getNominations(): IMovie[] {
         if (this.nominations == null) {
