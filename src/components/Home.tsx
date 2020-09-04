@@ -13,13 +13,7 @@ import cinema from "../resources/cinema.png";
 import trophy from "../resources/trophy.png";
 import { Spacer } from "./Spacer";
 import { IMovie } from "../stores/Interfaces";
-import includes from "lodash/includes";
-
-const AppContainer = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color: ${Colors.white};
-`;
+import { Modal } from "./Modal";
 
 const Row = styled.div`
     display: flex;
@@ -130,6 +124,11 @@ export class Home extends React.Component {
         this.showModal = true;
     };
 
+    @action
+    hideNominationCompleteModal = () => {
+        this.showModal = false;
+    };
+
     renderSearchResults = () => {
         return this.omdbStore.searchResults.map(movie =>
             this.renderSearchResult(movie, false)
@@ -171,7 +170,10 @@ export class Home extends React.Component {
 
     render() {
         return (
-            <AppContainer>
+            <React.Fragment>
+                {this.showModal ? (
+                    <Modal onClick={this.hideNominationCompleteModal} />
+                ) : null}
                 <Header />
                 <Row>
                     <InnerContainer>
@@ -219,7 +221,7 @@ export class Home extends React.Component {
                     </InnerContainer>
                 </Row>
                 <Footer />
-            </AppContainer>
+            </React.Fragment>
         );
     }
 }

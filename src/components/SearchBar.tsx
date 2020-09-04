@@ -32,10 +32,8 @@ const SearchField = styled.input`
     font-family: Montserrat;
 `;
 
-interface IProps {}
-
 @observer
-export class SearchBar extends React.Component<IProps> {
+export class SearchBar extends React.Component {
     @observable
     private omdbStore: OMDbStore = container.get(TYPES.OMDbStore);
 

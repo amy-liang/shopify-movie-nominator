@@ -10,7 +10,6 @@ const HeaderContainer = styled.div`
     align-items: center;
     position: fixed;
     padding-left: 32px;
-    z-index: 100;
     border-bottom: 0.5px solid ${Colors.navy};
 `;
 

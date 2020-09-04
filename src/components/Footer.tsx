@@ -17,30 +17,24 @@ const Container = styled.div`
     padding: 0px 8px;
 `;
 
-export class Footer extends React.Component {
-    render() {
-        return (
-            <FooterContainer>
-                <Container>
-                    <p>
-                        Shopify W'21 Web Developer Intern Challenge by Amy Liang
-                    </p>
-                    <p>
-                        Icons made by{" "}
-                        <a
-                            href="https://www.flaticon.com/authors/photo3idea-studio"
-                            title="photo3idea_studio"
-                        >
-                            photo3idea_studio
-                        </a>{" "}
-                        from{" "}
-                        <a href="https://www.flaticon.com/" title="Flaticon">
-                            {" "}
-                            www.flaticon.com
-                        </a>
-                    </p>
-                </Container>
-            </FooterContainer>
-        );
-    }
-}
+export const Footer = () => (
+    <FooterContainer>
+        <Container>
+            <p>Shopify W'21 Web Developer Intern Challenge by Amy Liang</p>
+            <p>
+                Icons made by{" "}
+                <a
+                    href="https://www.flaticon.com/authors/photo3idea-studio"
+                    title="photo3idea_studio"
+                >
+                    photo3idea_studio
+                </a>{" "}
+                from{" "}
+                <a href="https://www.flaticon.com/" title="Flaticon">
+                    {" "}
+                    www.flaticon.com
+                </a>
+            </p>
+        </Container>
+    </FooterContainer>
+);
