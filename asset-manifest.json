@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/shopify-movie-nominator/static/css/main.5428d52f.chunk.css",
-    "main.js": "/shopify-movie-nominator/static/js/main.eeb3994a.chunk.js",
-    "main.js.map": "/shopify-movie-nominator/static/js/main.eeb3994a.chunk.js.map",
+    "main.css": "/shopify-movie-nominator/static/css/main.4f9349f2.chunk.css",
+    "main.js": "/shopify-movie-nominator/static/js/main.bdb30489.chunk.js",
+    "main.js.map": "/shopify-movie-nominator/static/js/main.bdb30489.chunk.js.map",
     "runtime-main.js": "/shopify-movie-nominator/static/js/runtime-main.8035a94c.js",
     "runtime-main.js.map": "/shopify-movie-nominator/static/js/runtime-main.8035a94c.js.map",
     "static/js/2.32170218.chunk.js": "/shopify-movie-nominator/static/js/2.32170218.chunk.js",
     "static/js/2.32170218.chunk.js.map": "/shopify-movie-nominator/static/js/2.32170218.chunk.js.map",
     "index.html": "/shopify-movie-nominator/index.html",
-    "precache-manifest.0e29b3a9e6f0434dd5c1fe4cfab804a7.js": "/shopify-movie-nominator/precache-manifest.0e29b3a9e6f0434dd5c1fe4cfab804a7.js",
+    "precache-manifest.f3ed64cd86ab75e43ba895788b334786.js": "/shopify-movie-nominator/precache-manifest.f3ed64cd86ab75e43ba895788b334786.js",
     "service-worker.js": "/shopify-movie-nominator/service-worker.js",
-    "static/css/main.5428d52f.chunk.css.map": "/shopify-movie-nominator/static/css/main.5428d52f.chunk.css.map",
+    "static/css/main.4f9349f2.chunk.css.map": "/shopify-movie-nominator/static/css/main.4f9349f2.chunk.css.map",
     "static/js/2.32170218.chunk.js.LICENSE.txt": "/shopify-movie-nominator/static/js/2.32170218.chunk.js.LICENSE.txt",
     "static/media/cinema.png": "/shopify-movie-nominator/static/media/cinema.dc3d4eba.png",
     "static/media/search.svg": "/shopify-movie-nominator/static/media/search.070dbfaa.svg",
@@ -19,7 +19,7 @@
   "entrypoints": [
     "static/js/runtime-main.8035a94c.js",
     "static/js/2.32170218.chunk.js",
-    "static/css/main.5428d52f.chunk.css",
-    "static/js/main.eeb3994a.chunk.js"
+    "static/css/main.4f9349f2.chunk.css",
+    "static/js/main.bdb30489.chunk.js"
   ]
 }
