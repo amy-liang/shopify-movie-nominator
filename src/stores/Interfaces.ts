@@ -19,4 +19,5 @@ export interface IOMDbStore {
     searchMovies: (query: string, pageToken: number) => void;
     addNomination: (nomination: IMovie) => void;
     removeNomination: (movieToRemove: IMovie) => void;
+    setNominationsFromCache: () => void;
 }

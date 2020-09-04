@@ -15,12 +15,12 @@ import { Spacer } from "./Spacer";
 import { IMovie } from "../stores/Interfaces";
 import { Modal } from "./Modal";
 
-const Row = styled.div`
+const RowContainer = styled.div`
     display: flex;
     flex-direction: row;
 `;
 
-const InnerContainer = styled.div`
+const HalfContainer = styled.div`
     width: 50vw;
     height: 100vh;
     padding: 0px 16px;
@@ -28,7 +28,7 @@ const InnerContainer = styled.div`
     flex-direction: column;
 `;
 
-const ResultsContainer = styled.div`
+const InnerContainer = styled.div`
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -68,16 +68,16 @@ const SearchResultTextContainer = styled.div`
 `;
 
 const NominateButton = styled.div`
-    border: 1px solid
-        ${props => (props.isNomination ? Colors.navy : Colors.green)};
-    color: ${props => (props.isNomination ? Colors.navy : Colors.green)};
+    border: 1px solid ${props => props.color};
+    color: ${props => props.color};
     margin-right: 16px;
+    width: 94px;
     height: 30px;
     padding: 8px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    cursor: pointer;
+    cursor: ${props => props.cursor};
     justify-content: center;
 `;
 
@@ -108,6 +108,10 @@ export class Home extends React.Component {
         return this.omdbStore.nominations.length > 0;
     }
 
+    componentDidMount() {
+        this.omdbStore.setNominationsFromCache();
+    }
+
     private toggleNomination = (nomination: IMovie, isNomination: boolean) => {
         if (isNomination) {
             this.omdbStore.removeNomination(nomination);
@@ -120,27 +124,41 @@ export class Home extends React.Component {
     };
 
     @action
-    showNominationCompleteModal = () => {
+    private showNominationCompleteModal = () => {
         this.showModal = true;
     };
 
     @action
-    hideNominationCompleteModal = () => {
+    private hideNominationCompleteModal = () => {
         this.showModal = false;
     };
 
-    renderSearchResults = () => {
+    private renderSearchResultsList = () => {
         return this.omdbStore.searchResults.map(movie =>
             this.renderSearchResult(movie, false)
         );
     };
 
+    private renderNominationsList = () => {
+        return this.omdbStore.nominations.map(movie =>
+            this.renderSearchResult(movie, true)
+        );
+    };
+
     private renderSearchResult = (movie: IMovie, isNomination: boolean) => {
         let buttonText;
+        let color = Colors.green;
+        let cursor = "pointer";
         if (isNomination) {
             buttonText = "Remove";
+            color = Colors.navy;
         } else {
             buttonText = "Nominate";
+            if (this.omdbStore.nominations.includes(movie)) {
+                color = Colors.gray;
+                cursor = "default";
+                buttonText = "Nominated!";
+            }
         }
         return (
             <SearchResultContainer key={movie.id}>
@@ -154,7 +172,8 @@ export class Home extends React.Component {
                 </SearchResultTextContainer>
                 <NominateButton
                     onClick={() => this.toggleNomination(movie, isNomination)}
-                    isNomination={isNomination}
+                    color={color}
+                    cursor={cursor}
                 >
                     {buttonText}
                 </NominateButton>
@@ -162,9 +181,56 @@ export class Home extends React.Component {
         );
     };
 
-    renderNominations = () => {
-        return this.omdbStore.nominations.map(movie =>
-            this.renderSearchResult(movie, true)
+    renderSearchResultsContainer = () => {
+        return (
+            <HalfContainer>
+                <Spacer height={Dimensions.headerHeight} />
+                <SearchBar />
+                <Spacer height={32} />
+                <InnerContainer>
+                    {this.showingSearchResults ? (
+                        this.renderSearchResultsList()
+                    ) : (
+                        <PlaceholderContainer>
+                            {this.omdbStore.error ? null : (
+                                <img
+                                    src={cinema}
+                                    alt="search placeholder"
+                                    width={140}
+                                />
+                            )}
+                            <p>
+                                {this.omdbStore.error
+                                    ? this.omdbStore.error
+                                    : "Search for a movie!"}
+                            </p>
+                        </PlaceholderContainer>
+                    )}
+                </InnerContainer>
+            </HalfContainer>
+        );
+    };
+
+    renderNominationsContainer = () => {
+        return (
+            <HalfContainer>
+                <Spacer height={Dimensions.headerHeight} />
+                <NominationsContainer>
+                    <h2>Nominations</h2>
+                    {this.hasNominations ? (
+                        this.renderNominationsList()
+                    ) : (
+                        <PlaceholderContainer>
+                            <img
+                                src={trophy}
+                                alt="nominations placeholder"
+                                width={140}
+                            />
+                            <p>None yet!</p>
+                        </PlaceholderContainer>
+                    )}
+                </NominationsContainer>
+            </HalfContainer>
         );
     };
 
@@ -175,51 +241,10 @@ export class Home extends React.Component {
                     <Modal onClick={this.hideNominationCompleteModal} />
                 ) : null}
                 <Header />
-                <Row>
-                    <InnerContainer>
-                        <Spacer height={Dimensions.headerHeight} />
-                        <SearchBar />
-                        <Spacer height={32} />
-                        <ResultsContainer>
-                            {this.showingSearchResults ? (
-                                this.renderSearchResults()
-                            ) : (
-                                <PlaceholderContainer>
-                                    {this.omdbStore.error ? null : (
-                                        <img
-                                            src={cinema}
-                                            alt="search placeholder"
-                                            width={140}
-                                        />
-                                    )}
-                                    <p>
-                                        {this.omdbStore.error
-                                            ? this.omdbStore.error
-                                            : "Search for a movie!"}
-                                    </p>
-                                </PlaceholderContainer>
-                            )}
-                        </ResultsContainer>
-                    </InnerContainer>
-                    <InnerContainer>
-                        <Spacer height={Dimensions.headerHeight} />
-                        <NominationsContainer>
-                            <h2>Nominations</h2>
-                            {this.hasNominations ? (
-                                this.renderNominations()
-                            ) : (
-                                <PlaceholderContainer>
-                                    <img
-                                        src={trophy}
-                                        alt="nominations placeholder"
-                                        width={140}
-                                    />
-                                    <p>None yet!</p>
-                                </PlaceholderContainer>
-                            )}
-                        </NominationsContainer>
-                    </InnerContainer>
-                </Row>
+                <RowContainer>
+                    {this.renderSearchResultsContainer()}
+                    {this.renderNominationsContainer()}
+                </RowContainer>
                 <Footer />
             </React.Fragment>
         );

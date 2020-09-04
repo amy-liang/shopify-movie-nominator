@@ -42,7 +42,6 @@ export class OMDbStore implements IOMDbStore {
             const movieData = rawData.data.Search;
             this.parseAndSetMovieData(movieData);
         } catch (error) {
-            console.error("Error: " + error);
             this.error = error;
         }
     };
@@ -63,9 +62,7 @@ export class OMDbStore implements IOMDbStore {
 
     @action
     addNomination(movie: IMovie) {
-        if (this.nominations.length >= 5) {
-            console.log("WOW!");
-        } else {
+        if (this.nominations.length < 5) {
             this.nominations.push(movie);
             this.updateCache();
         }
@@ -77,6 +74,25 @@ export class OMDbStore implements IOMDbStore {
             movie => movie !== movieToRemove
         );
         this.updateCache();
+    }
+
+    @action
+    setNominationsFromCache() {
+        let nominationsString = localStorage.getItem(
+            "shopify_movie_nominations_cached"
+        );
+        if (nominationsString == null) return;
+
+        // Parse nominations list
+        let movieEndIndex = nominationsString.indexOf("}");
+        while (movieEndIndex > -1) {
+            const movie = JSON.parse(
+                nominationsString.substring(0, movieEndIndex + 1)
+            );
+            this.nominations.push(movie);
+            nominationsString = nominationsString.slice(movieEndIndex + 2);
+            movieEndIndex = nominationsString.indexOf("}");
+        }
     }
 
     private updateCache() {

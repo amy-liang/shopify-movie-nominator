@@ -42,6 +42,7 @@ export class SearchBar extends React.Component {
 
     @action
     onInput = (query: string) => {
+        // Currently only returns first page of results
         this.omdbStore.searchMovies(query, 1);
     };
 
