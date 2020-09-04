@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6ce4996a3c27863a3f1800947380f7f4",
+    "revision": "d5f9d4b312e8fbac6b15e1babdd01695",
     "url": "/shopify-movie-nominator/index.html"
   },
   {
-    "revision": "298724f81dd11dc6f3d1",
+    "revision": "0a00192724194732855f",
     "url": "/shopify-movie-nominator/static/css/main.5428d52f.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/shopify-movie-nominator/static/js/2.32170218.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "298724f81dd11dc6f3d1",
-    "url": "/shopify-movie-nominator/static/js/main.b98f8bd6.chunk.js"
+    "revision": "0a00192724194732855f",
+    "url": "/shopify-movie-nominator/static/js/main.eeb3994a.chunk.js"
   },
   {
     "revision": "8c792194ba888fb220aa",
